@@ -46,3 +46,17 @@ See the [MultiVolumeExplorer](ttps://github.com/fedorov/MultiVolumeExplorer) mod
 
 [4]: Pintaske J, Martirosian P, Graf H, Erb G, Lodemann K-P, Claussen CD, Schick F. "Relaxivity of Gadopentetate Dimeglumine (Magnevist), Gadobutrol (Gadovist), and Gadobenate Dimeglumine (MultiHance) in human blood plasma at 0.2, 1.5, and 3 Tesla." Investigative radiology. 2006 March;41(3):213–21.
 
+
+# Build
+See the [Build Instructions](https://www.slicer.org/slicerWiki/index.php/Documentation/Nightly/Developers/Build_Module)
+
+	$ cmake -DSlicer_DIR:PATH=/path/to/Slicer-Superbuild/Slicer-build .
+	$ make
+
+# Create Tags
+
+	ctags -R  --langmap=c++:+.cu --langmap=c++:+.cuh --langmap=c++:+.txx --langmap=c++:+.cl $(SOURCE) .
+
+# CLI usage example
+
+	lib/Slicer-4.3/cli-modules/PkModeling --T1Blood 1600 --T1Tissue 1597 --relaxivity 0.0039 --S0grad 15.0 --fTolerance 1e-4 --gTolerance 1e-4 --xTolerance 1e-5 --epsilon 1e-9 --maxIter 200 --hematocrit 0.4 --aucTimeInterval 90 --computeFpv --usePopAif  --outputKtrans outktrans.nii.gz --outputVe  outVe.nii.gz --outputFpv outfpv.nii.gz --outputMaxSlope outslope.nii.gz --outputAUC outAUC.nii.gz  Data/SampledPhantoms/QINProstate001/Input/QINProstate001-phantom.nrrd

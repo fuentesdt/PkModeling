@@ -2,6 +2,15 @@ cmake_minimum_required(VERSION 2.8.7)
 
 set(LIBRARY_NAME PkSolver)
 
+# Find ITK.
+FIND_PACKAGE(ITK REQUIRED)
+IF(ITK_FOUND)
+    INCLUDE(${ITK_USE_FILE})
+ELSE(ITK_FOUND)
+    MESSAGE(FATAL_ERROR "ITK not found. Please set ITK_DIR.")
+ENDIF(ITK_FOUND)
+
+
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 add_library(${LIBRARY_NAME} STATIC ${LIBRARY_NAME}.cxx ${LIBRARY_NAME}.h)
