@@ -60,3 +60,12 @@ See the [Build Instructions](https://www.slicer.org/slicerWiki/index.php/Documen
 # CLI usage example
 
 	lib/Slicer-4.3/cli-modules/PkModeling --T1Blood 1600 --T1Tissue 1597 --relaxivity 0.0039 --S0grad 15.0 --fTolerance 1e-4 --gTolerance 1e-4 --xTolerance 1e-5 --epsilon 1e-9 --maxIter 200 --hematocrit 0.4 --aucTimeInterval 90 --computeFpv --usePopAif  --outputKtrans outktrans.nii.gz --outputVe  outVe.nii.gz --outputFpv outfpv.nii.gz --outputMaxSlope outslope.nii.gz --outputAUC outAUC.nii.gz  Data/SampledPhantoms/QINProstate001/Input/QINProstate001-phantom.nrrd
+
+
+	lib/Slicer-4.3/cli-modules/PkModeling --T1Tissue 1597 --T1Blood 1600 --relaxivity 0.0039 --S0grad 15.0 --hematocrit 0.4 --aucTimeInterval 90 --fTolerance 1e-4 --gTolerance 1e-4 --xTolerance 1e-5 --epsilon 1e-9 --maxIter 200 --outputKtrans /workarea/fuentes/github/PkModeling/Testing/Temporary/QINProstate001-ktrans.nrrd --outputVe /workarea/fuentes/github/PkModeling/Testing/Temporary/QINProstate001-ve.nrrd --outputMaxSlope /workarea/fuentes/github/PkModeling/Testing/Temporary/QINProstate001-maxslope.nrrd --outputAUC /workarea/fuentes/github/PkModeling/Testing/Temporary/QINProstate001-auc.nrrd --outputBAT /workarea/fuentes/github/PkModeling/Testing/Temporary/QINProstate001-bat.nrrd --fitted /workarea/fuentes/github/PkModeling/Testing/Temporary/QINProstate001-fit.nrrd --concentrations /workarea/fuentes/github/PkModeling/Testing/Temporary/QINProstate001-conc.nrrd --roiMask /workarea/fuentes/github/PkModeling/CLI/Testing/Cxx/../../../Data/SampledPhantoms/QINProstate001/Input/QINProstate001-phantom-ROI.nrrd --aifMask /workarea/fuentes/github/PkModeling/CLI/Testing/Cxx/../../../Data/SampledPhantoms/QINProstate001/Input/QINProstate001-phantom-AIF.nrrd /workarea/fuentes/github/PkModeling/CLI/Testing/Cxx/../../../Data/SampledPhantoms/QINProstate001/Input/QINProstate001-phantom.nrrd
+
+c3d /workarea/fuentes/github/PkModeling/CLI/Testing/Cxx/../../../Data/SampledPhantoms/QINProstate001/Baseline/phantom-ktrans.nrrd /workarea/fuentes/github/PkModeling/Testing/Temporary/QINProstate001-ktrans.nrrd  -scale -1 -add /workarea/fuentes/github/PkModeling/CLI/Testing/Cxx/../../../Data/SampledPhantoms/QINProstate001/Input/QINProstate001-phantom-ROI.nrrd -lstat
+
+c3d /workarea/fuentes/github/PkModeling/CLI/Testing/Cxx/../../../Data/SampledPhantoms/QINProstate001/Baseline/phantom-ktrans.nrrd  /workarea/fuentes/github/PkModeling/CLI/Testing/Cxx/../../../Data/SampledPhantoms/QINProstate001/Input/QINProstate001-phantom-ROI.nrrd -lstat
+
+
