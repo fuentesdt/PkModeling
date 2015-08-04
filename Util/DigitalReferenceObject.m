@@ -7,7 +7,9 @@ FlipAngle=15;
 T1Phantom = 1600.
 R10 = 1./T1Phantom;
 ktrans = 0.796541
-ve = 0.453603
+ve     = 0.453603
+ktrans = 0.82865 
+ve     = 0.42068 
 relaxivity=0.0039 
 hematocrit=0.4
 
@@ -38,6 +40,11 @@ log_value = log(value);
 ROft = (-1./RepetitionTime) * log_value;
 Cb = (ROft - R10 ) / relaxivity;
 
+% test the inverse
+E1test = exp(- RepetitionTime*(Cb * relaxivity +R10));
+signaltest = 200/ constB * (1.-E1test ).* (1.-cos_alpha * E1test).^(-1);
+norm(signaltest -signalCb)
+
 % convolution gives Cv
 % TODO: ktrans in minutes...
 DeltaT = (MeasureTime(2) - MeasureTime(1))/60. 
@@ -47,7 +54,10 @@ auxvar = padarray(conv (Cb,exp(VeTerm ))',[3 0]);
 Cv = (1./(1.0-hematocrit))*ktrans  * DeltaT * auxvar(1:ntime);
 DeltaR = relaxivity*Cv;
 
-signalCv = (1.-exp(- RepetitionTime*(DeltaR  +R10))).* (1.- cos(FlipAngle*pi/180.) * exp(- RepetitionTime*(DeltaR  +R10))).^(-1);
+
+% convert back to expected siganl with S0 = 100
+E1 = exp(- RepetitionTime*(DeltaR +R10));
+signalCv = 100/ constB * (1.-E1 ).* (1.-cos_alpha * E1).^(-1);
 
 % rewrite prostate dataset AIF
 prostateqin = zeros(ntime ,9,12);
@@ -75,7 +85,7 @@ handletwo = figure(2);
 plot(MeasureTime,Cb);
 
 handlethree = figure(3);
-plot(MeasureTime,signalCv(1:length(MeasureTime)));
+plot(MeasureTime,signalCv);
 
 handlefour = figure(4);
 plot(MeasureTime,Cv);
@@ -90,7 +100,7 @@ for idtime =1:length(MeasureTime)
   %imageout(:,1,:)   = Cb (idtime);
   %imageout(:,2:4,:) = Cv (idtime);
   niidata = make_nii(imageout,[1 1 1], [0 0 0],16,'phantom');
-  save_nii(niidata ,sprintf('phantom.%04d.nii.gz',idtime));
+  save_nii(niidata ,sprintf('phantom.%04d.nii.gz',idtime-1));
 end
 
 % create aif mask
@@ -109,9 +119,9 @@ save_nii(niidata ,'roimask.nii.gz');
 disp(sprintf('c3d %s -omc newphantom.nrrd',sprintf('newphantom.%04d.nii.gz ',[0:ntime-1]) ))
 disp(sprintf('c3d newphantom.0000.nii.gz ../QIN/QINProstate001-phantom-AIF.nrrd -copy-transform -o newphantom.mask.aif.nii.gz '))
 disp(sprintf('c3d newphantom.0000.nii.gz ../QIN/QINProstate001-phantom-ROI.nrrd -copy-transform -o newphantom.mask.roi.nii.gz '))
-disp('\n')
+disp(' ')
 disp(sprintf('c3d %s -omc phantom.nrrd',sprintf('phantom.%04d.nii.gz ',[0:ntime-1]) ))
-disp(sprintf('MultiVolume.FrameLabels:=%s ',sprintf('%4.1f,',MeasureTime)))
+disp(sprintf('MultiVolume.FrameLabels:=%s ',sprintf('%f,',1.e-3*MeasureTime)))
 disp(sprintf('MultiVolume.NumberOfFrames:=%d ',length(MeasureTime)))
 disp(sprintf('MultiVolume.DICOM.FlipAngle:=%f ',FlipAngle))
 disp(sprintf('MultiVolume.DICOM.RepetitionTime:=%f ',RepetitionTime))
@@ -119,6 +129,9 @@ disp(sprintf('MultiVolume.FrameIdentifyingDICOMTagName:=TriggerTime'))
 disp(sprintf('kinds: list domain domain domain '))
 
 
-sprintf('./lib/Slicer-4.3/cli-modules/PkModeling --T1Tissue %f --T1Blood %f --relaxivity %f --S0grad 15.0 --hematocrit %f --aucTimeInterval 90 --fTolerance 1e-4 --gTolerance 1e-4 --xTolerance 1e-5 --epsilon 1e-9 --outputKtrans ./Util/phantomktrans.nrrd --outputVe ./Util/phantomve.nrrd --outputMaxSlope ./Util/phantommaxslope.nrrd --outputAUC ./Util/phantomauc.nrrd --outputBAT ./Util/phantombat.nrrd --fitted ./Util/phantomfit.nrrd --concentrations ./Util/phantomconc.nrrd --roiMask ./Util/roimask.nii.gz --aifMask ./Util/aifmask.nii.gz --maxIter 200 ./Util/phantom.nrrd',T1Phantom,T1Phantom,relaxivity, hematocrit)
+sprintf('./lib/Slicer-4.3/cli-modules/PkModeling --T1Tissue %f --T1Blood %f --relaxivity %f --S0grad 15.0 --hematocrit %f --aucTimeInterval 90 --fTolerance 1e-12 --gTolerance 1e-12 --xTolerance 1e-12 --epsilon 1e-9 --outputKtrans ./Util/phantomktrans.nrrd --outputVe ./Util/phantomve.nrrd --outputMaxSlope ./Util/phantommaxslope.nrrd --outputAUC ./Util/phantomauc.nrrd --outputBAT ./Util/phantombat.nrrd --fitted ./Util/phantomfit.nrrd --concentrations ./Util/phantomconc.nrrd --roiMask ./Util/roimask.nii.gz --aifMask ./Util/aifmask.nii.gz --maxIter 200 ./Util/phantom.nrrd',T1Phantom,T1Phantom,relaxivity, hematocrit)
 
 
+sprintf('vglrun itksnap -g ./Util/phantomktrans.nrrd -o ./Util/phantomve.nrrd -s ./Util/roimask.nii.gz ')
+sprintf('c3d ./Util/phantomktrans.nrrd  ./Util/roimask.nii.gz -lstat ')
+sprintf('c3d ./Util/phantomve.nrrd      ./Util/roimask.nii.gz -lstat ')
