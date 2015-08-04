@@ -59,9 +59,13 @@ See the [Build Instructions](https://www.slicer.org/slicerWiki/index.php/Documen
 
 # Convert Files
 
-	c3d -mcs  QINProstate001-phantom.nrrd -oo QINProstate001-phantom.%04d.nii.gz
+	4d images are  multi-component 3d images with time component varying the fastest
 
+	c3d -mcs  QINProstate001-phantom.nrrd -oo QINProstate001-phantom.%04d.nii.gz
 	c3d -mcs  Util/test/fit.nrrd -oo Util/test/fit.%04d.nii.gz
+	c3d -mcs  Util/phantomfit.nrrd -oo Util/phantomfit.%04d.nii.gz
+
+	c3d phantom.0000.nii.gz phantom.0001.nii.gz phantom.0002.nii.gz phantom.0003.nii.gz phantom.0004.nii.gz phantom.0005.nii.gz phantom.0006.nii.gz phantom.0007.nii.gz phantom.0008.nii.gz phantom.0009.nii.gz phantom.0010.nii.gz phantom.0011.nii.gz phantom.0012.nii.gz phantom.0013.nii.gz phantom.0014.nii.gz phantom.0015.nii.gz phantom.0016.nii.gz phantom.0017.nii.gz phantom.0018.nii.gz phantom.0019.nii.gz phantom.0020.nii.gz phantom.0021.nii.gz phantom.0022.nii.gz phantom.0023.nii.gz phantom.0024.nii.gz phantom.0025.nii.gz phantom.0026.nii.gz phantom.0027.nii.gz phantom.0028.nii.gz phantom.0029.nii.gz phantom.0030.nii.gz phantom.0031.nii.gz phantom.0032.nii.gz phantom.0033.nii.gz phantom.0034.nii.gz phantom.0035.nii.gz phantom.0036.nii.gz phantom.0037.nii.gz phantom.0038.nii.gz phantom.0039.nii.gz phantom.0040.nii.gz phantom.0041.nii.gz phantom.0042.nii.gz phantom.0043.nii.gz phantom.0044.nii.gz phantom.0045.nii.gz phantom.0046.nii.gz phantom.0047.nii.gz phantom.0048.nii.gz phantom.0049.nii.gz phantom.0050.nii.gz phantom.0051.nii.gz phantom.0052.nii.gz phantom.0053.nii.gz phantom.0054.nii.gz phantom.0055.nii.gz phantom.0056.nii.gz phantom.0057.nii.gz phantom.0058.nii.gz phantom.0059.nii.gz  -omc phantom.nrrd
 
 # CLI usage example
 

@@ -62,6 +62,7 @@ signalCv = 100/ constB * (1.-E1 ).* (1.-cos_alpha * E1).^(-1);
 % rewrite prostate dataset AIF
 prostateqin = zeros(ntime ,9,12);
 newdro      = zeros(ntime ,9,12);
+customdro   = zeros(ntime ,5,4,3);
 for idtime = 1:ntime 
   % read
   niidata = load_untouch_nii(sprintf('QIN/QINProstate001-phantom.%04d.nii.gz',idtime-1 ));
@@ -73,6 +74,9 @@ for idtime = 1:ntime
   % read
   niidata = load_untouch_nii(sprintf('test/fit.%04d.nii.gz',idtime-1 ));
   newdro(idtime,:,:) = niidata.img;
+  % read
+  niidata = load_untouch_nii(sprintf('phantomfit.%04d.nii.gz',idtime-1 ));
+  customdro(idtime,:,:,:) = niidata.img;
 end
 
 handlefive = figure(5);
@@ -91,6 +95,7 @@ handlefour = figure(4);
 plot(MeasureTime,Cv);
 hold
 plot(MeasureTime,newdro(:,4,4),'r-.');
+plot(MeasureTime,customdro(:,1,2,1),'k:');
 
 
 imageout = zeros(5,4,3);
