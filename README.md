@@ -57,6 +57,12 @@ See the [Build Instructions](https://www.slicer.org/slicerWiki/index.php/Documen
 
 	ctags -R  --langmap=c++:+.cu --langmap=c++:+.cuh --langmap=c++:+.txx --langmap=c++:+.cl $(SOURCE) .
 
+# Convert Files
+
+	c3d -mcs  QINProstate001-phantom.nrrd -oo QINProstate001-phantom.%04d.nii.gz
+
+	c3d -mcs  Util/test/fit.nrrd -oo Util/test/fit.%04d.nii.gz
+
 # CLI usage example
 
 	lib/Slicer-4.3/cli-modules/PkModeling --T1Blood 1600 --T1Tissue 1597 --relaxivity 0.0039 --S0grad 15.0 --fTolerance 1e-4 --gTolerance 1e-4 --xTolerance 1e-5 --epsilon 1e-9 --maxIter 200 --hematocrit 0.4 --aucTimeInterval 90 --computeFpv --usePopAif  --outputKtrans outktrans.nii.gz --outputVe  outVe.nii.gz --outputFpv outfpv.nii.gz --outputMaxSlope outslope.nii.gz --outputAUC outAUC.nii.gz  Data/SampledPhantoms/QINProstate001/Input/QINProstate001-phantom.nrrd
@@ -67,5 +73,12 @@ See the [Build Instructions](https://www.slicer.org/slicerWiki/index.php/Documen
 c3d /workarea/fuentes/github/PkModeling/CLI/Testing/Cxx/../../../Data/SampledPhantoms/QINProstate001/Baseline/phantom-ktrans.nrrd /workarea/fuentes/github/PkModeling/Testing/Temporary/QINProstate001-ktrans.nrrd  -scale -1 -add /workarea/fuentes/github/PkModeling/CLI/Testing/Cxx/../../../Data/SampledPhantoms/QINProstate001/Input/QINProstate001-phantom-ROI.nrrd -lstat
 
 c3d /workarea/fuentes/github/PkModeling/CLI/Testing/Cxx/../../../Data/SampledPhantoms/QINProstate001/Baseline/phantom-ktrans.nrrd  /workarea/fuentes/github/PkModeling/CLI/Testing/Cxx/../../../Data/SampledPhantoms/QINProstate001/Input/QINProstate001-phantom-ROI.nrrd -lstat
+
+
+	lib/Slicer-4.3/cli-modules/PkModeling --T1Tissue 1600 --T1Blood 1600 --relaxivity 0.0039 --S0grad 15.0 --hematocrit 0.4 --aucTimeInterval 90 --fTolerance 1e-4 --gTolerance 1e-4 --xTolerance 1e-5 --epsilon 1e-9 --maxIter 200 --outputKtrans test-ktrans.nrrd --outputVe test-ve.nrrd --outputMaxSlope test-maxslope.nrrd --outputAUC test-auc.nrrd --outputBAT test-bat.nrrd --fitted test-fit.nrrd --concentrations test-conc.nrrd --roiMask ./Data/SampledPhantoms/QINProstate001/Input/QINProstate001-phantom-ROI.nrrd --aifMask ./Data/SampledPhantoms/QINProstate001/Input/QINProstate001-phantom-AIF.nrrd ./Data/SampledPhantoms/QINProstate001/Input/QINProstate001-phantom.nrrd
+
+
+
+	lib/Slicer-4.3/cli-modules/PkModeling --T1Tissue 1600 --T1Blood 1600 --relaxivity 0.0039 --S0grad 15.0 --hematocrit 0.4 --aucTimeInterval 90 --fTolerance 1e-4 --gTolerance 1e-4 --xTolerance 1e-5 --epsilon 1e-9 --maxIter 200 --outputKtrans ./Util/test/ktrans.nrrd --outputVe ./Util/test/ve.nrrd --outputMaxSlope ./Util/test/maxslope.nrrd --outputAUC ./Util/test/auc.nrrd --outputBAT ./Util/test/bat.nrrd --fitted ./Util/test/fit.nrrd --concentrations ./Util/test/conc.nrrd --roiMask ./Util/newphantom/newphantom.mask.roi.nii.gz --aifMask ./Util/newphantom/newphantom.mask.aif.nii.gz  ./Util/newphantom/newphantom.nrrd
 
 
