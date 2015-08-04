@@ -80,5 +80,3 @@ c3d /workarea/fuentes/github/PkModeling/CLI/Testing/Cxx/../../../Data/SampledPha
 
 
 	lib/Slicer-4.3/cli-modules/PkModeling --T1Tissue 1600 --T1Blood 1600 --relaxivity 0.0039 --S0grad 15.0 --hematocrit 0.4 --aucTimeInterval 90 --fTolerance 1e-4 --gTolerance 1e-4 --xTolerance 1e-5 --epsilon 1e-9 --maxIter 200 --outputKtrans ./Util/test/ktrans.nrrd --outputVe ./Util/test/ve.nrrd --outputMaxSlope ./Util/test/maxslope.nrrd --outputAUC ./Util/test/auc.nrrd --outputBAT ./Util/test/bat.nrrd --fitted ./Util/test/fit.nrrd --concentrations ./Util/test/conc.nrrd --roiMask ./Util/newphantom/newphantom.mask.roi.nii.gz --aifMask ./Util/newphantom/newphantom.mask.aif.nii.gz  ./Util/newphantom/newphantom.nrrd
-
-
