@@ -48,7 +48,27 @@ See the [MultiVolumeExplorer](ttps://github.com/fedorov/MultiVolumeExplorer) mod
 
 # AUC calculations
 
-[compute_bolus_arrival_time](https://github.com/fuentesdt/PkModeling/blob/master/PkSolver/PkSolver.cxx#L614)
+[convert_signal_to_concentration](https://github.com/fuentesdt/PkModeling/blob/master/PkSolver/PkSolver.cxx#L306)
+```
+Breakpoint 4, itk::convert_signal_to_concentration (signalSize=36, SignalIntensityCurve=0x7fffc8000df0, T1Pre=1600, TR=3.14400005, FA=15, concentration=0x7fffc8000d50,
+    RGd_relaxivity=0.00389999989, s0=0, S0GradThresh=15) at /workarea/fuentes/github/PkModeling/PkSolver/PkSolver.cxx:278
+278       const double exp_TR_BloodT1 = exp (-TR/T1Pre);
+(gdb) bt
+#0  itk::convert_signal_to_concentration (signalSize=36, SignalIntensityCurve=0x7fffc8000df0, T1Pre=1600, TR=3.14400005, FA=15, concentration=0x7fffc8000d50,
+    RGd_relaxivity=0.00389999989, s0=0, S0GradThresh=15) at /workarea/fuentes/github/PkModeling/PkSolver/PkSolver.cxx:278
+#1  0x00007ffff788c2f3 in itk::SignalIntensityToConcentrationImageFilter<itk::VectorImage<short, 3u>, itk::Image<short, 3u>, itk::VectorImage<float, 3u> >::GenerateData (this=0xa73130)
+    at /workarea/fuentes/github/PkModeling/CLI/itkSignalIntensityToConcentrationImageFilter.hxx:105
+#2  0x00007fffe9341368 in itk::ProcessObject::UpdateOutputData (this=0xa73130) at /opt/apps/SLICER/Slicer-SuperBuild-r22599-Debug/ITKv4/Modules/Core/Common/src/itkProcessObject.cxx:1743
+#3  0x00007fffe93573a9 in itk::DataObject::UpdateOutputData (this=0xa733e0) at /opt/apps/SLICER/Slicer-SuperBuild-r22599-Debug/ITKv4/Modules/Core/Common/src/itkDataObject.cxx:434
+#4  0x00007ffff7854004 in itk::ImageBase<3u>::UpdateOutputData (this=0xa733e0) at /opt/apps/SLICER/Slicer-SuperBuild-r22599-Debug/ITKv4/Modules/Core/Common/include/itkImageBase.hxx:285
+#5  0x00007fffe935702f in itk::DataObject::Update (this=0xa733e0) at /opt/apps/SLICER/Slicer-SuperBuild-r22599-Debug/ITKv4/Modules/Core/Common/src/itkDataObject.cxx:359
+#6  0x00007fffe9340288 in itk::ProcessObject::Update (this=0xa73130) at /opt/apps/SLICER/Slicer-SuperBuild-r22599-Debug/ITKv4/Modules/Core/Common/src/itkProcessObject.cxx:1324
+#7  0x00007ffff77f8f1e in DoIt<short, short> (argc=35, argv=0x7fffffffd998) at /workarea/fuentes/github/PkModeling/CLI/PkModeling.cxx:366
+#8  0x00007ffff77ee381 in ModuleEntryPoint (argc=35, argv=0x7fffffffd998) at /workarea/fuentes/github/PkModeling/CLI/PkModeling.cxx:542
+#9  0x0000000000401309 in main (argc=35, argv=0x7fffffffd998) at /opt/apps/SLICER/Slicer-SuperBuild-r22599-Debug/Slicer-build/Base/CLI/SEMCommandLineLibraryWrapper.cxx:42
+```
+
+[compute_bolus_arrival_time](https://github.com/fuentesdt/PkModeling/blob/master/PkSolver/PkSolver.cxx#L471)
 ```
 (gdb) bt
 #0  itk::compute_bolus_arrival_time (signalSize=36, SignalY=0xa74320, ArrivalTime=@0x7fffd8756bb8, FirstPeak=@0x7fffd8756bb4, MaxSlope=@0x7fffd8756bb0)
