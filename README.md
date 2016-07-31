@@ -46,6 +46,45 @@ See the [MultiVolumeExplorer](ttps://github.com/fedorov/MultiVolumeExplorer) mod
 
 [4]: Pintaske J, Martirosian P, Graf H, Erb G, Lodemann K-P, Claussen CD, Schick F. "Relaxivity of Gadopentetate Dimeglumine (Magnevist), Gadobutrol (Gadovist), and Gadobenate Dimeglumine (MultiHance) in human blood plasma at 0.2, 1.5, and 3 Tesla." Investigative radiology. 2006 March;41(3):213–21.
 
+# AUC calculations
+
+	[compute_bolus_arrival_time](https://github.com/fuentesdt/PkModeling/blob/master/PkSolver/PkSolver.cxx#L614)
+
+```
+(gdb) bt
+#0  itk::compute_bolus_arrival_time (signalSize=36, SignalY=0xa74320, ArrivalTime=@0x7fffd8756bb8, FirstPeak=@0x7fffd8756bb4, MaxSlope=@0x7fffd8756bb0)
+    at /workarea/fuentes/github/PkModeling/PkSolver/PkSolver.cxx:439
+#1  0x00007ffff79287a8 in itk::compute_s0_individual_curve (signalSize=36, SignalY=0xa74320, S0GradThresh=15, BATCalculationMode=..., constantBAT=1)
+    at /workarea/fuentes/github/PkModeling/PkSolver/PkSolver.cxx:614
+#2  0x00007ffff791faea in itk::SignalIntensityToS0ImageFilter<itk::VectorImage<short, 3u>, itk::Image<float, 3u> >::ThreadedGenerateData (this=0xa73d10, outputRegionForThread=...)
+    at /workarea/fuentes/github/PkModeling/CLI/itkSignalIntensityToS0ImageFilter.hxx:55
+#3  0x00007ffff78b1410 in itk::ImageSource<itk::Image<float, 3u> >::ThreaderCallback (arg=0xa81ab8)
+    at /opt/apps/SLICER/Slicer-SuperBuild-r22599-Debug/ITKv4/Modules/Core/Common/include/itkImageSource.hxx:295
+#4  0x00007fffe9352855 in itk::MultiThreader::SingleMethodProxy (arg=0xa81ab8) at /opt/apps/SLICER/Slicer-SuperBuild-r22599-Debug/ITKv4/Modules/Core/Common/src/itkMultiThreader.cxx:375
+#5  0x00007ffff7bc69ca in start_thread (arg=<value optimized out>) at pthread_create.c:300
+#6  0x00007fffe6ce1cdd in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:112
+#7  0x0000000000000000 in ?? ()
+```
+
+	[area_under_curve](https://github.com/fuentesdt/PkModeling/blob/master/PkSolver/PkSolver.cxx#L328)
+```
+#0  itk::area_under_curve (signalSize=36, timeAxis=0x7fffb4006d10, concentration=0x7fffb4007490, BATIndex=3, aucTimeInterval=90)
+    at /workarea/fuentes/github/PkModeling/PkSolver/PkSolver.cxx:328
+#1  0x00007ffff7889095 in itk::ConcentrationToQuantitativeImageFilter<itk::VectorImage<float, 3u>, itk::Image<short, 3u>, itk::Image<float, 3u> >::BeforeThreadedGenerateData (
+    this=0x7fffb4000b30) at /workarea/fuentes/github/PkModeling/CLI/itkConcentrationToQuantitativeImageFilter.hxx:284
+#2  0x00007ffff7886a27 in itk::ImageSource<itk::Image<float, 3u> >::GenerateData (this=0x7fffb4000b30)
+    at /opt/apps/SLICER/Slicer-SuperBuild-r22599-Debug/ITKv4/Modules/Core/Common/include/itkImageSource.hxx:227
+#3  0x00007fffe9341368 in itk::ProcessObject::UpdateOutputData (this=0x7fffb4000b30)
+    at /opt/apps/SLICER/Slicer-SuperBuild-r22599-Debug/ITKv4/Modules/Core/Common/src/itkProcessObject.cxx:1743
+#4  0x00007fffe93573a9 in itk::DataObject::UpdateOutputData (this=0x7fffb4005000) at /opt/apps/SLICER/Slicer-SuperBuild-r22599-Debug/ITKv4/Modules/Core/Common/src/itkDataObject.cxx:434
+#5  0x00007ffff7854004 in itk::ImageBase<3u>::UpdateOutputData (this=0x7fffb4005000)
+    at /opt/apps/SLICER/Slicer-SuperBuild-r22599-Debug/ITKv4/Modules/Core/Common/include/itkImageBase.hxx:285
+#6  0x00007fffe935702f in itk::DataObject::Update (this=0x7fffb4005000) at /opt/apps/SLICER/Slicer-SuperBuild-r22599-Debug/ITKv4/Modules/Core/Common/src/itkDataObject.cxx:359
+#7  0x00007fffe9340288 in itk::ProcessObject::Update (this=0x7fffb4000b30) at /opt/apps/SLICER/Slicer-SuperBuild-r22599-Debug/ITKv4/Modules/Core/Common/src/itkProcessObject.cxx:1324
+#8  0x00007ffff77f94f7 in DoIt<short, short> (argc=35, argv=0x7fffffffd998) at /workarea/fuentes/github/PkModeling/CLI/PkModeling.cxx:428
+#9  0x00007ffff77ee381 in ModuleEntryPoint (argc=35, argv=0x7fffffffd998) at /workarea/fuentes/github/PkModeling/CLI/PkModeling.cxx:542
+#10 0x0000000000401309 in main (argc=35, argv=0x7fffffffd998) at /opt/apps/SLICER/Slicer-SuperBuild-r22599-Debug/Slicer-build/Base/CLI/SEMCommandLineLibraryWrapper.cxx:42
+```
 
 # Build
 See the [Build Instructions](https://www.slicer.org/slicerWiki/index.php/Documentation/Nightly/Developers/Build_Module)
@@ -66,6 +105,10 @@ See the [Build Instructions](https://www.slicer.org/slicerWiki/index.php/Documen
 	c3d -mcs  Util/phantomfit.nrrd -oo Util/phantomfit.%04d.nii.gz
 
 	c3d phantom.0000.nii.gz phantom.0001.nii.gz phantom.0002.nii.gz phantom.0003.nii.gz phantom.0004.nii.gz phantom.0005.nii.gz phantom.0006.nii.gz phantom.0007.nii.gz phantom.0008.nii.gz phantom.0009.nii.gz phantom.0010.nii.gz phantom.0011.nii.gz phantom.0012.nii.gz phantom.0013.nii.gz phantom.0014.nii.gz phantom.0015.nii.gz phantom.0016.nii.gz phantom.0017.nii.gz phantom.0018.nii.gz phantom.0019.nii.gz phantom.0020.nii.gz phantom.0021.nii.gz phantom.0022.nii.gz phantom.0023.nii.gz phantom.0024.nii.gz phantom.0025.nii.gz phantom.0026.nii.gz phantom.0027.nii.gz phantom.0028.nii.gz phantom.0029.nii.gz phantom.0030.nii.gz phantom.0031.nii.gz phantom.0032.nii.gz phantom.0033.nii.gz phantom.0034.nii.gz phantom.0035.nii.gz phantom.0036.nii.gz phantom.0037.nii.gz phantom.0038.nii.gz phantom.0039.nii.gz phantom.0040.nii.gz phantom.0041.nii.gz phantom.0042.nii.gz phantom.0043.nii.gz phantom.0044.nii.gz phantom.0045.nii.gz phantom.0046.nii.gz phantom.0047.nii.gz phantom.0048.nii.gz phantom.0049.nii.gz phantom.0050.nii.gz phantom.0051.nii.gz phantom.0052.nii.gz phantom.0053.nii.gz phantom.0054.nii.gz phantom.0055.nii.gz phantom.0056.nii.gz phantom.0057.nii.gz phantom.0058.nii.gz phantom.0059.nii.gz  -omc phantom.nrrd
+
+# debug 
+
+	gdb --args lib/Slicer-4.3/cli-modules/PkModeling --T1Blood 1600 --T1Tissue 1600 --relaxivity 0.0039 --S0grad 15.0 --fTolerance 1e-4 --gTolerance 1e-4 --xTolerance 1e-5 --epsilon 1e-9 --maxIter 200 --hematocrit 0.4 --aucTimeInterval 90 --usePopAif  --outputKtrans outktrans.nii.gz --outputVe  outVe.nii.gz --outputFpv outfpv.nii.gz --outputMaxSlope outslope.nii.gz --outputAUC outAUC.nii.gz Data/Brain/DCEraw.nrrd
 
 # CLI usage example
 
