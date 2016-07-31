@@ -48,8 +48,7 @@ See the [MultiVolumeExplorer](ttps://github.com/fedorov/MultiVolumeExplorer) mod
 
 # AUC calculations
 
-	[compute_bolus_arrival_time](https://github.com/fuentesdt/PkModeling/blob/master/PkSolver/PkSolver.cxx#L614)
-
+[compute_bolus_arrival_time](https://github.com/fuentesdt/PkModeling/blob/master/PkSolver/PkSolver.cxx#L614)
 ```
 (gdb) bt
 #0  itk::compute_bolus_arrival_time (signalSize=36, SignalY=0xa74320, ArrivalTime=@0x7fffd8756bb8, FirstPeak=@0x7fffd8756bb4, MaxSlope=@0x7fffd8756bb0)
@@ -66,7 +65,7 @@ See the [MultiVolumeExplorer](ttps://github.com/fedorov/MultiVolumeExplorer) mod
 #7  0x0000000000000000 in ?? ()
 ```
 
-	[area_under_curve](https://github.com/fuentesdt/PkModeling/blob/master/PkSolver/PkSolver.cxx#L328)
+[area_under_curve](https://github.com/fuentesdt/PkModeling/blob/master/PkSolver/PkSolver.cxx#L328)
 ```
 #0  itk::area_under_curve (signalSize=36, timeAxis=0x7fffb4006d10, concentration=0x7fffb4007490, BATIndex=3, aucTimeInterval=90)
     at /workarea/fuentes/github/PkModeling/PkSolver/PkSolver.cxx:328
