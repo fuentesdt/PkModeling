@@ -1,5 +1,5 @@
 # PkModeling
-PkModeling is a [3D Slicer Version 4](http://www.slicer.org) Extension that provides pharmacokinetic modeling for dynamic contrast enhanced MRI (DCE MRI)[1][2].
+PkModeling is a [3D Slicer Version 4](http://www.slicer.org) Extension that provides pharmacokinetic modeling for dynamic contrast enhanced MRI (DCE MRI)[1][2]. See documentation at https://www.slicer.org/wiki/Documentation/Nightly/Modules/PkModeling.
 
 PkModeling accepts volumetric timecourse data of signal intensities and computes parametric maps using either a two or three parameter Tofts model. The estimated parameters include
 
@@ -35,7 +35,7 @@ Acquisition parameters relevent to the parametric model fitting are embedded in 
 See the [MultiVolumeExplorer](ttps://github.com/fedorov/MultiVolumeExplorer) module in the 3D Slicer.
 
 # Authors
-@millerjv, @fedorov, @zhuy
+[@millerjv](https://github.com/millerjv), [@fedorov](https://github.com/fedorov), [@zhuy](https://github.com/zhuy)
 
 # References
 [1]: Knopp MV, Giesel FL, Marcos H et al. "Dynamic contrast-enhanced magnetic resonance imaging in oncology." Top Magn Reson Imaging, 2001; 12:301-308.
