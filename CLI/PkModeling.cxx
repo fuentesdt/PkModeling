@@ -24,6 +24,7 @@
 #include "itkPluginUtilities.h"
 
 #include "itkSignalIntensityToConcentrationImageFilter.h"
+#include "itkLinearIntensityToConcentrationImageFilter.h"
 #include "itkConcentrationToQuantitativeImageFilter.h"
 
 #include <sstream>
@@ -350,7 +351,7 @@ type Get##name(itk::MetaDataDictionary& dictionary)           \
     }
 
     //Convert to concentration values
-    typedef itk::SignalIntensityToConcentrationImageFilter<VectorVolumeType, MaskVolumeType, FloatVectorVolumeType> ConvertFilterType;
+    typedef itk::LinearIntensityToConcentrationImageFilter<VectorVolumeType, MaskVolumeType, FloatVectorVolumeType> ConvertFilterType;
     typename ConvertFilterType::Pointer converter = ConvertFilterType::New();
     converter->SetInput(inputVectorVolume);
 
@@ -417,6 +418,9 @@ type Get##name(itk::MetaDataDictionary& dictionary)           \
 
     quantifier->SetAUCTimeInterval(AUCTimeInterval);
     quantifier->SetTiming(Timing);
+    quantifier->SetKtrans0(KtransValue0);
+    quantifier->SetVe0(VeValue0);
+    quantifier->SetFpv0(FpvValue0);
     quantifier->SetfTol(FTolerance);
     quantifier->SetgTol(GTolerance);
     quantifier->SetxTol(XTolerance);
@@ -439,6 +443,7 @@ type Get##name(itk::MetaDataDictionary& dictionary)           \
       quantifier->SetModelType(itk::LMCostFunction::TOFTS_2_PARAMETER);
     }
 
+    quantifier->Print(std::cout);
     itk::PluginFilterWatcher watchQuantifier(quantifier, "Quantifying", CLPProcessInformation, 19.0 / 20.0, 1.0 / 20.0);
     quantifier->Update();
 

@@ -22,6 +22,8 @@ set(MODULE_SRCS
   itkSignalIntensityToS0ImageFilter.hxx
   itkSignalIntensityToConcentrationImageFilter.h
   itkSignalIntensityToConcentrationImageFilter.hxx
+  itkLinearIntensityToConcentrationImageFilter.h
+  itkLinearIntensityToConcentrationImageFilter.hxx
   itkConcentrationToQuantitativeImageFilter.h
   itkConcentrationToQuantitativeImageFilter.hxx
   )

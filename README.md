@@ -111,6 +111,14 @@ See the [Build Instructions](https://www.slicer.org/slicerWiki/index.php/Documen
 	$ cmake -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo -DSlicer_DIR:PATH=/path/to/Slicer-Superbuild/Slicer-build .
 	$ make
 
+# Attach gdb
+
+        https://askubuntu.com/questions/41629/after-upgrade-gdb-wont-attach-to-process
+
+        echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+
+        b  ModuleEntryPoint  at CLI/PkModeling.cxx
+
 # Create Tags
 
 	ctags -R  --langmap=c++:+.cu --langmap=c++:+.cuh --langmap=c++:+.txx --langmap=c++:+.cl $(SOURCE) .

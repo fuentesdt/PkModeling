@@ -305,6 +305,7 @@ namespace itk
   unsigned pk_solver(int signalSize, const float* timeAxis,
     const float* PixelConcentrationCurve, const float* BloodConcentrationCurve,
     float& Ktrans, float& Ve, float& Fpv,
+    float initKtrans, float initVe, float initFpv,
     float fTol, float gTol, float xTol,
     float epsilon, int maxIter, float hematocrit,
     itk::LevenbergMarquardtOptimizer* optimizer,
@@ -316,6 +317,10 @@ namespace itk
   void pk_report();
   void pk_clear();
 
+  bool linear_signal_to_concentration(unsigned int signalSize,
+    const float* SignalIntensityCurve,
+    float* concentration,
+    float s0 = -111.0f);
   bool convert_signal_to_concentration(unsigned int signalSize,
     const float* SignalIntensityCurve,
     float T1, float TR, float FA,

@@ -1,14 +1,14 @@
 /*=========================================================================
 
   Program:   Insight Segmentation & Registration Toolkit
-  Module:    $SignalIntensitiesToConcentrationValues: itkSignalIntensityToConcentrationImageFilter.h $
+  Module:    $SignalIntensitiesToConcentrationValues: itkLinearIntensityToConcentrationImageFilter.h $
   Language:  C++
   Date:      $Date: 2012/03/07 $
   Version:   $Revision: 0.0 $
 
   =========================================================================*/
-#ifndef __itkSignalIntensityToConcentrationImageFilter_h
-#define __itkSignalIntensityToConcentrationImageFilter_h
+#ifndef __itkLinearIntensityToConcentrationImageFilter_h
+#define __itkLinearIntensityToConcentrationImageFilter_h
 
 #include "itkImageToImageFilter.h"
 #include "itkImage.h"
@@ -22,7 +22,7 @@
 
 namespace itk
 {
-  /** \class SignalIntensityToConcentrationImageFilter
+  /** \class LinearIntensityToConcentrationImageFilter
    * \brief Convert from signal intensities to concentrations.
    *
    * This converts an VectorImage of signal intensities into a
@@ -40,7 +40,7 @@ namespace itk
    *
    */
   template <class TInputImage, class TMaskImage, class TOutputImage>
-  class SignalIntensityToConcentrationImageFilter : public ImageToImageFilter < TInputImage, TOutputImage >
+  class LinearIntensityToConcentrationImageFilter : public ImageToImageFilter < TInputImage, TOutputImage >
   {
   public:
     /** Convenient typedefs for simplifying declarations. */
@@ -79,7 +79,7 @@ namespace itk
     typedef itk::VariableLengthVector<float> InternalVectorVoxelType;
 
     /** Standard class typedefs. */
-    typedef SignalIntensityToConcentrationImageFilter Self;
+    typedef LinearIntensityToConcentrationImageFilter Self;
     typedef ImageToImageFilter<InputImageType, OutputImageType> Superclass;
     typedef SmartPointer<Self>                                  Pointer;
     typedef SmartPointer<const Self>                            ConstPointer;
@@ -88,7 +88,7 @@ namespace itk
     itkNewMacro(Self);
 
     /** Run-time type information (and related methods). */
-    itkTypeMacro(SignalIntensityToConcentrationImageFilter, ImageToImageFilter);
+    itkTypeMacro(LinearIntensityToConcentrationImageFilter, ImageToImageFilter);
 
     /** Set and get the number of DWI channels. */
     itkGetMacro(T1PreBlood, float);
@@ -147,9 +147,9 @@ namespace itk
     }
 
   protected:
-    SignalIntensityToConcentrationImageFilter();
+    LinearIntensityToConcentrationImageFilter();
 
-    virtual ~SignalIntensityToConcentrationImageFilter()
+    virtual ~LinearIntensityToConcentrationImageFilter()
     {
     }
 
@@ -162,7 +162,7 @@ namespace itk
     void PrintSelf(std::ostream& os, Indent indent) const;
 
   private:
-    SignalIntensityToConcentrationImageFilter(const Self &); //
+    LinearIntensityToConcentrationImageFilter(const Self &); //
     // purposely
     // not
     // implemented
@@ -211,7 +211,7 @@ namespace itk
 }; // end namespace itk
 
 #ifndef ITK_MANUAL_INSTANTIATION
-#include "itkSignalIntensityToConcentrationImageFilter.hxx"
+#include "itkLinearIntensityToConcentrationImageFilter.hxx"
 #endif
 
 #endif

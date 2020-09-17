@@ -105,6 +105,12 @@ namespace itk
 
     /** Set and get the parameters to control the calculation of
     quantified valued */
+    itkGetMacro(Ktrans0, float);
+    itkSetMacro(Ktrans0, float);
+    itkGetMacro(Ve0, float);
+    itkSetMacro(Ve0, float);
+    itkGetMacro(Fpv0, float);
+    itkSetMacro(Fpv0, float);
     itkGetMacro(T1Pre, float);
     itkSetMacro(T1Pre, float);
     itkGetMacro(TR, float);
@@ -224,6 +230,9 @@ namespace itk
     ConcentrationToQuantitativeImageFilter(const Self &); // purposely not implemented
     void operator=(const Self &); // purposely not implemented
 
+    float  m_Ktrans0;
+    float  m_Ve0;
+    float  m_Fpv0;
     float  m_T1Pre;
     float  m_TR;
     float  m_FA;
@@ -238,7 +247,7 @@ namespace itk
     float  m_AUCTimeInterval;
     int    m_AIFBATIndex;
     int    m_ModelType;
-    int m_constantBAT;
+    int    m_constantBAT;
     std::string m_BATCalculationMode;
 
     std::vector<float> m_Timing;

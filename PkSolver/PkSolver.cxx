@@ -148,6 +148,7 @@ namespace itk
     const float* PixelConcentrationCurve,
     const float* BloodConcentrationCurve,
     float& Ktrans, float& Ve, float& Fpv,
+    float  initKtrans, float  initVe, float  initFpv,
     float fTol, float gTol, float xTol,
     float epsilon, int maxIter,
     float hematocrit,
@@ -182,13 +183,12 @@ namespace itk
     else
     {
       initialValue = LMCostFunction::ParametersType(3);
-      initialValue[2] = 0.1;     //f_pv //...
+      initialValue[2] = initFpv;     //f_pv //...
     }
-    initialValue[0] = 0.1;     //Ktrans //...
-    initialValue[1] = 0.5;     //ve //...
+    initialValue[0] = initKtrans;     //Ktrans //...
+    initialValue[1] = initVe;     //ve //...
 
     costFunction->SetNumberOfValues(signalSize);
-
 
     costFunction->SetCb(BloodConcentrationCurve, signalSize); //BloodConcentrationCurve
     costFunction->SetCv(PixelConcentrationCurve, signalSize); //Signal Y
@@ -302,6 +302,19 @@ namespace itk
 #define PI 3.1415926535897932384626433832795
 #define IS_NAN(x) ((x) != (x))
 
+  bool linear_signal_to_concentration(unsigned int signalSize,
+    const float* SignalIntensityCurve,
+    float* concentration,
+    float s0)
+  {
+    for (unsigned int t = 0; t < signalSize; ++t)
+    {
+      const float tSignal = SignalIntensityCurve[t];
+      concentration[t] = tSignal - s0;
+    }
+
+    return true;
+  }
   bool convert_signal_to_concentration(unsigned int signalSize,
     const float* SignalIntensityCurve,
     const float T1Pre, float TR, float FA,

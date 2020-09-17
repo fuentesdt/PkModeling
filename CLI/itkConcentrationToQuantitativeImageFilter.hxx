@@ -439,6 +439,7 @@ namespace itk
             const_cast<float *>(shiftedVectorVoxel.GetDataPointer()),
             &m_AIF[0],
             tempKtrans, tempVe, tempFpv,
+            m_Ktrans0, m_Ve0, m_Fpv0,
             m_fTol, m_gTol, m_xTol,
             m_epsilon, m_maxIter, m_hematocrit,
             optimizer, costFunction, m_ModelType, m_constantBAT, m_BATCalculationMode);
@@ -858,12 +859,18 @@ namespace itk
     ::PrintSelf(std::ostream& os, Indent indent) const
   {
     Superclass::PrintSelf(os, indent);
+    os << indent << "Ktrans0: " << m_Ktrans0 << std::endl;
+    os << indent << "Ve0    : " << m_Ve0     << std::endl;
+    os << indent << "Fpv0   : " << m_Fpv0    << std::endl;
     os << indent << "Function tolerance: " << m_fTol << std::endl;
     os << indent << "Gradient tolerance: " << m_gTol << std::endl;
     os << indent << "Parameter tolerance: " << m_xTol << std::endl;
     os << indent << "Epsilon: " << m_epsilon << std::endl;
     os << indent << "Maximum number of iterations: " << m_maxIter << std::endl;
     os << indent << "Hematocrit: " << m_hematocrit << std::endl;
+    os << indent << "ModelType:   " << m_ModelType  << std::endl;
+    os << indent << "constantBAT: " << m_constantBAT<< std::endl;
+    os << indent << "BATCalculationMode: " << m_BATCalculationMode<< std::endl;
   }
 
 } // end namespace itk

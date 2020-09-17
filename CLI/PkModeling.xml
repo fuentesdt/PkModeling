@@ -13,6 +13,30 @@
     <label>PkModeling Parameters</label>
     <description><![CDATA[Parameters used for PkModeling]]></description>
     <float>
+      <name>KtransValue0</name>
+      <description><![CDATA[Ktrans Initial Guess.]]></description>
+      <longflag>ktrans0</longflag>
+      <label>Initial Guess KTrans</label>
+      <channel>input</channel>
+      <default>0.1</default>
+    </float>
+    <float>
+      <name>VeValue0</name>
+      <description><![CDATA[Ve Initial Guess.]]></description>
+      <longflag>ve0</longflag>
+      <label>Initial Guess Ve</label>
+      <channel>input</channel>
+      <default>0.5</default>
+    </float>
+    <float>
+      <name>FpvValue0</name>
+      <description><![CDATA[Fpv Initial Guess.]]></description>
+      <longflag>fpv0</longflag>
+      <label>Initial Guess Fpv</label>
+      <channel>input</channel>
+      <default>0.1</default>
+    </float>
+    <float>
       <name>T1PreBloodValue</name>
       <description><![CDATA[T1 value for blood.]]></description>
       <longflag>T1Blood</longflag>
