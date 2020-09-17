@@ -108,7 +108,7 @@ Breakpoint 4, itk::convert_signal_to_concentration (signalSize=36, SignalIntensi
 # Build
 See the [Build Instructions](https://www.slicer.org/slicerWiki/index.php/Documentation/Nightly/Developers/Build_Module)
 
-	$ cmake -DSlicer_DIR:PATH=/path/to/Slicer-Superbuild/Slicer-build .
+	$ cmake -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo -DSlicer_DIR:PATH=/path/to/Slicer-Superbuild/Slicer-build .
 	$ make
 
 # Create Tags

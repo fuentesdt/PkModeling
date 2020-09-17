@@ -290,7 +290,7 @@ type Get##name(itk::MetaDataDictionary& dictionary)           \
 
     //Read AIF mask
     typename MaskVolumeReaderType::Pointer aifMaskVolumeReader = MaskVolumeReaderType::New();
-    typename MaskVolumeType::Pointer aifMaskVolume = 0;
+    typename MaskVolumeType::Pointer aifMaskVolume = nullptr;
     if (AIFMaskFileName != "")
     {
       aifMaskVolumeReader->SetFileName(AIFMaskFileName.c_str());
@@ -300,7 +300,7 @@ type Get##name(itk::MetaDataDictionary& dictionary)           \
 
     //Read T1 Map
     typename MaskVolumeReaderType::Pointer T1MapVolumeReader = MaskVolumeReaderType::New();
-    typename MaskVolumeType::Pointer T1MapVolume = 0;
+    typename MaskVolumeType::Pointer T1MapVolume = nullptr;
     if (T1MapFileName != "")
     {
       T1MapVolumeReader->SetFileName(T1MapFileName.c_str());
@@ -310,7 +310,7 @@ type Get##name(itk::MetaDataDictionary& dictionary)           \
 
     //Read ROI mask
     typename MaskVolumeReaderType::Pointer roiMaskVolumeReader = MaskVolumeReaderType::New();
-    typename MaskVolumeType::Pointer roiMaskVolume = 0;
+    typename MaskVolumeType::Pointer roiMaskVolume = nullptr;
     if (ROIMaskFileName != "")
     {
       roiMaskVolumeReader->SetFileName(ROIMaskFileName.c_str());
